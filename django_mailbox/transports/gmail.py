@@ -33,6 +33,7 @@ class GmailImapTransport(ImapTransport):
             )
 
         access_token = None
+        google_email_address = username
         while access_token is None:
             try:
                 access_token = get_google_access_token(username)
