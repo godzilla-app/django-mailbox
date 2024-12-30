@@ -33,11 +33,12 @@ class GmailImapTransport(ImapTransport):
             )
 
         access_token = None
-        google_email_address = username
         while access_token is None:
             try:
-                access_token = get_google_access_token(username)
+                # token refreshed here when expired
                 google_email_address = fetch_user_info(username)['email']
+                # retrieve token from db
+                access_token = get_google_access_token(username)
             except TypeError:
                 # This means that the google process took too long
                 # Trying again is the right thing to do
